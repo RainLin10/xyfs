@@ -19,6 +19,7 @@
             <div class="lowin-box-inner">
                 <form action="/Login" method="post">
                     <p>请登录</p>
+                    <p STYLE="color: #ff6464" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}">请登录</p>
                     <div class="lowin-group">
                         <label>账户</label>
                         <input type="email" autocomplete="account" name="account" class="lowin-input">

@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.util.StringUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -15,11 +18,15 @@ import java.util.Map;
 public class LoginController {
     //    @RequestMapping(value = "/Login",method = RequestMethod.POST)
     @PostMapping("/Login")
-    public String Login(@RequestParam("account") String account, @RequestParam("passWord") String passWord, Map<String,Object> map) {
+    public String Login(@RequestParam("account") String account,
+                        @RequestParam("passWord") String passWord,
+                        Map<String,Object> map,
+                        HttpSession session) {
         if (!StringUtils.isEmpty(account) && "123".equals(passWord)) {
-            return "index";
+            session.setAttribute("account",account);
+            return "redirect:/index.html";
         }
-        map.put("msg","用户名密码错误");
+        map.put("msg","用户名密码错误!");
         return "login";
     }
 }

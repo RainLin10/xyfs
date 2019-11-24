@@ -1,10 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}">
+    <link th:href="@{/webjars/jquery/3.4.1/jquery.js}">
 </head>
 <body>
-index
+<p>你好！<a th:text="${session.account}"></a></p>
 </body>
 </html>
