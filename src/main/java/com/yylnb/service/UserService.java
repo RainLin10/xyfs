@@ -10,4 +10,5 @@ import com.yylnb.entity.User;
 public interface UserService {
     User findByAccount(String account);
     void insertUser(User user);
+    void updateUser(User user);
 }

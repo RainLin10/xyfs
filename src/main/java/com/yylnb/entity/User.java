@@ -31,6 +31,6 @@ public class User {
     //登录ip
     private String login_ip;
     //登录次数
-    private Integer count;
+    private Integer login_times;
 
 }

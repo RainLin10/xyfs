@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.InetAddress;
 import java.util.UUID;
@@ -43,7 +45,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request,
+                           HttpServletResponse response,
                            HttpSession session) throws Exception {
 
         //通过前端发送请求,此处接受回调函数,接受两个发送来的值
@@ -54,10 +56,9 @@ public class AuthorizeController {
         accessToken.setCode(code);
         accessToken.setRedirect_uri(Redirect_uri);
         accessToken.setState(state);
-        //调用获取访问令牌的方法 返回token
-        String token = githubProvider.getAccessToken(accessToken);
-        //通过返回的token获取用户的数据
-        GithubUser githubUser = githubProvider.githubUser(token);
+
+        //通过返回的token获取用户的数据                            调用获取访问令牌的方法 返回token
+        GithubUser githubUser = githubProvider.githubUser(githubProvider.getAccessToken(accessToken));
 
 
         if (githubUser != null) {
@@ -70,24 +71,15 @@ public class AuthorizeController {
             user.setToken(UUID.randomUUID().toString());
             user.setCreate_time(System.currentTimeMillis());
             user.setLogin_time(System.currentTimeMillis());
-            user.setCount(1);
+            user.setLogin_times(1);
             InetAddress addr = InetAddress.getLocalHost();
             user.setLogin_ip(addr.getHostAddress());
-
-            //用账户在数据库寻找用户
-            User findUser=userService.findByAccount(user.getAccount());
-
-            //如果可以用ID找到该用户 代表已经注册了 找不到就注册
-            if(findUser == null){
-                userService.insertUser(user);
-            }else {
-                System.out.println("用户已存在");
-            }
-            request.getSession().setAttribute("user", user);
-//            Cookie cookie = new Cookie("token", token);
-//            cookie.setMaxAge(60*60*24*3);
-//            response.addCookie(cookie);
-//            userService.autoLogin(user);
+            //加入或更新数据库
+            userService.insertUser(user);
+            //登录之后把token加入cookie 并设置过期时间
+            Cookie cookie = new Cookie("token",  user.getToken());
+            cookie.setMaxAge(60);
+            response.addCookie(cookie);
             return "redirect:/";
         } else {
             //登录失败
