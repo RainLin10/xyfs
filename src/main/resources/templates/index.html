@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>咸鱼翻身</title>
     <!--引入BootStrap和Css-->
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!--图标库-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-
 <body>
 
+<!--顶部导航-->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- 首页大按钮 -->
@@ -42,51 +44,179 @@
                     </ul>
                 </li>
             </ul>
+            <!--商品搜索栏-->
             <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="搜索商品">
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
+            <!--登录显示-->
+            <ul class="nav navbar-nav navbar-right" th:if="${session.user!=null}">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">卖家中心<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">免费开店</a></li>
+                        <li><a href="#">卖家订单中心</a></li>
+                    </ul>
+                </li>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user!=null}"><img class="media-object img-rounded" style="max-height: 3.7em; max-width: 3.7em;"
-                                                       th:src="${session.user.getAvatar_img()}">
+                <li><img class="media-object img-rounded"
+                         style="max-height: 3.7em; max-width: 3.7em;"
+                         th:src="${session.user.getAvatar_img()}">
                 </li>
                 <li class="dropdown" th:if="${session.user!=null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">注销</a></li>
+                        <li><a href="#">账号管理</a></li>
+                        <li><a href="#">订单中心</a></li>
+                        <li><a href="logout">注销</a></li>
                     </ul>
                 </li>
-
-
-                <li class="dropdown" th:if="${session.user==null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">登录 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" >登录</a></li>
-                        <li>
-                            <a href="https://github.com/login/oauth/authorize?client_id=Iv1.b66da60546dd747a&redirect_uri=http://localhost:8080/callback&scope=user&state=1">Github授权登录</a>
-                        </li>
-                        <li><a href="#" >微信授权登录</a></li>
-                        <li><a href="#" >QQ授权登录</a></li>
-                    </ul>
+            </ul>
+            <!--未登录显示-->
+            <ul class="nav navbar-nav navbar-right" th:if="${session.user==null}">
+                <li><a href="#" type="button" data-toggle="modal" data-target="#myModal">登录</a>
                 </li>
-
             </ul>
         </div>
     </div>
 </nav>
 
+<!--登录模态框-->
+<div class="modal container" id="myModal">
+    <div class="card-wrap" style="margin-top: 300px;">
+        <div class="card border-0 shadow card--welcome is-show" id="welcome">
+            <div class="card-body" style=" background-color: white;height: 250px;border-radius:10px;">
+                <h2 class="card-title">欢迎光临</h2>
+                <p>欢迎进入登录页面</p>
+                <div class="mBtn-wrap"><a class="mBtn mBtn-lg mBtn-register js-mBtn" data-target="register">注册</a><a
+                        class="mBtn mBtn-lg mBtn-login js-mBtn" data-target="login">登录</a></div>
+            </div>
+        </div>
 
-</body>
+        <div class="card border-0 shadow card--register" id="register"
+             style="background-color: white;border-radius:10px;">
+            <div class="card-body">
+                <h2 class="card-title">会员注册</h2>
+                <p>使用您的电子邮箱进行注册</p>
+                <form>
+                    <div class="form-group">
+                        <input class="mForm-control" type="text" placeholder="名称" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input class="mForm-control" type="email" placeholder="邮箱" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input class="mForm-control" type="password" placeholder="密码" required="required">
+                    </div>
+                    <button class="mBtn mBtn-lg">注册</button>
+                </form>
+            </div>
+            <button class="mBtn mBtn-back js-mBtn" data-target="welcome"><i class="fa fa-arrow-left"></i></button>
+        </div>
+
+        <div class="card border-0 shadow card--login" id="login" style="background-color: white;border-radius:10px;">
+            <div class="card-body">
+                <h2 class="card-title">欢迎登录！</h2>
+                <p>第三方登录</p>
+                <p class="badge-wrap">
+                    <!--Github授权登录-->
+                    <a class="badge"
+                       onclick="location='https://github.com/login/oauth/authorize?client_id=Iv1.b66da60546dd747a&redirect_uri=http://localhost:8080/callback&scope=user&state=1'"><i
+                            class="fa fa-github"></i></a>
+                    <a class="badge"><i class="fa fa-qq"></i></a>
+                    <a class="badge"><i class="fa fa-wechat"></i></a>
+                </p>
+                <p>或用邮箱登录</p>
+                <form>
+                    <div class="form-group">
+                        <input class="mForm-control" type="email" placeholder="邮箱" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input class="mForm-control" type="password" placeholder="密码" required="required">
+                    </div>
+                    <p><a href="#">忘记密码?</a></p>
+                    <button class="mBtn mBtn-lg">登录</button>
+                </form>
+            </div>
+            <button class="mBtn mBtn-back js-mBtn" data-target="welcome"><i class="fa fa-arrow-left"></i></button>
+        </div>
+    </div>
+</div>
+
+<!--内容-->
+<div class="container-fluid"
+     style="border-radius:10px; box-shadow:0px 0px 16px 5px #ccc; margin-top: 15px; max-width: 90%">
+    <div class="row">
+        <!--左侧导航栏位置-->
+        <div class="col-xs-2" style="height: 500px;padding: 0">
+        </div>
+        <!--中间内容-->
+        <div class="col-xs-7" style="height: 500px;padding: 0;">
+            <!--轮播图-->
+            <div class="carousel slide" id="slidershow" data-ride="carousel" data-interval="5000" style="width: 100%;">
+                <!--计数器-->
+                <ol class="carousel-indicators">
+                    <li class="active" data-target="#slidershow" data-slide-to="0"></li>
+                    <li data-target="#slidershow" data-slide-to="1"></li>
+                    <li data-target="#slidershow" data-slide-to="2"></li>
+                </ol>
+                <!--图片容器-->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <a href="#">
+                            <img src="/img/HomeDisplay/1.png" style="height:400px;">
+                            <!--添加对应标题和内容-->
+                            <div class="carousel-caption">
+                                <h4>图一</h4>
+                                <span>内容</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#">
+                            <img src="/img/HomeDisplay/2.png" style="height:400px;"/>
+                            <!--添加对应标题和内容-->
+                            <div class="carousel-caption">
+                                <h4>图二</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#">
+                            <img src="/img/HomeDisplay/3.png" style="height:400px;"/>
+                            <!--添加对应标题和内容-->
+                            <div class="carousel-caption">
+                                <h4>图三</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <!--轮播导航-->
+                    <a href="#slidershow" data-slide="prev" class="left carousel-control" role="button">
+                        <i class="fa fa-arrow-left" style="margin-top: 200px;"></i>
+                    </a>
+                    <a href="#slidershow" data-slide="next" class="right carousel-control" role="button">
+                        <i class="fa fa-arrow-right" style="margin-top: 200px;"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="width: 100%;height: 100px;background-color: #ff6464">
+
+            </div>
+        </div>
+        <!--右侧内容-->
+        <div class="col-xs-3" style="background-color: #66afe9;height: 500px">.col-md-3</div>
+    </div>
+</div>
+
+
 <!--引入JS文件-->
 <script src="js/jquery-3.3.1.min.js" type="application/javascript"></script>
 <script src="js/bootstrap.min.js" type="application/javascript"></script>
+<script src="js/index.js" type="application/javascript"></script>
+</body>
 </html>
-
-
