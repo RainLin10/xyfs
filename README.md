@@ -1,5 +1,5 @@
 #咸鱼翻身网 - 二手交易平台
-此为毕设作品
+###此为毕设作品
 
 ## github授权登陆模块（OAuth2.0）
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
@@ -22,18 +22,21 @@
 
 ## 关于数据库的配置
 1. MySql驱动版本小于6
-   - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-   - spring.datasource.url=jdbc:mysql://localhost:3306/数据库名
-   - spring.datasource.username=账号
-   - spring.datasource.password=密码
+   -spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+   -spring.datasource.url=jdbc:mysql://localhost:3306/数据库名
+   -spring.datasource.username=账号
+   -spring.datasource.password=密码
 2. MySql驱动版本为6或大于6
-   - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-   - spring.datasource.url=jdbc:mysql://localhost:3306/数据库名?useUnicode=true&characterEncoding=utf8&useSSL=false
-   - spring.datasource.username=账号
-   - spring.datasource.password=密码
+   -spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   -spring.datasource.url=jdbc:mysql://localhost:3306/数据库名?useUnicode=true&characterEncoding=utf8&useSSL=false
+   -spring.datasource.username=账号
+   -spring.datasource.password=密码
     
 ## Session与Cookie 用户登录态
-1. 当用户进入时，拦截器自动拦截所有Cookie，遍历Cookie找到Key为token的Cookie,如果没有找到代表没有登录
-2. 找到之后拿token去数据库找该用户的所有信息并返回，然后注入到Session
-3. 没找到，让用户登录，登录的时候生成token加入Cookie并设置过期时间
-4. Session的会在浏览器关闭时被销毁，但是每次进入网站，如果Cookie没过期会重新注入生成一个Session，以此形成一个用户登录态
+   -当用户进入时，拦截器自动拦截所有Cookie，遍历Cookie找到Key为token的Cookie,如果没有找到代表没有登录
+   -找到之后拿token去数据库找该用户的所有信息并返回，然后注入到Session
+   -没找到，让用户登录，登录的时候生成token加入Cookie并设置过期时间
+   -Session的会在浏览器关闭时被销毁，但是每次进入网站，如果Cookie没过期会重新注入生成一个Session，以此形成一个用户登录态
+   
+## 待解决的问题
+   1. 登录之后，依然可以访问login.html
