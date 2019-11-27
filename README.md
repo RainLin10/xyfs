@@ -22,15 +22,15 @@
 
 ## 关于数据库的配置
 1. MySql驱动版本小于6
-    spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-    spring.datasource.url=jdbc:mysql://localhost:3306/数据库名
-    spring.datasource.username=账号
-    spring.datasource.password=密码
+   - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+   - spring.datasource.url=jdbc:mysql://localhost:3306/数据库名
+   - spring.datasource.username=账号
+   - spring.datasource.password=密码
 2. MySql驱动版本为6或大于6
-    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-    spring.datasource.url=jdbc:mysql://localhost:3306/数据库名?useUnicode=true&characterEncoding=utf8&useSSL=false
-    spring.datasource.username=账号
-    spring.datasource.password=密码
+   - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   - spring.datasource.url=jdbc:mysql://localhost:3306/数据库名?useUnicode=true&characterEncoding=utf8&useSSL=false
+   - spring.datasource.username=账号
+   - spring.datasource.password=密码
     
 ## Session与Cookie 用户登录态
 1. 当用户进入时，拦截器自动拦截所有Cookie，遍历Cookie找到Key为token的Cookie,如果没有找到代表没有登录
