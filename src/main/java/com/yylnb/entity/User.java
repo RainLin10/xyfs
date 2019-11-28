@@ -14,8 +14,10 @@ public class User {
     private Integer id;
     //昵称
     private String name;
-    //账户/邮箱
+    //账户
     private String account;
+    //签名
+    private String bio;
     //密码
     private  String password;
     //电话号码
@@ -32,5 +34,7 @@ public class User {
     private String login_ip;
     //登录次数
     private Integer login_times;
+    //是否会员
+    private  Integer isVip;
 
 }

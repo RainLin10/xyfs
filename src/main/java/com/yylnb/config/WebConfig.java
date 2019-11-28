@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     //需要拦截的路径，默认为全部
     String addPathPatterns[] = {
-            "/"
+            "/**"
     };
 
     //排除不需要拦截的路径
@@ -43,5 +43,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/member.html").setViewName("member");
+        registry.addViewController("/headerPage.html").setViewName("headerPage");
     }
 }

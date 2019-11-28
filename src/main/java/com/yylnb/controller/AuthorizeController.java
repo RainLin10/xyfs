@@ -68,12 +68,14 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAvatar_img(githubUser.getAvatar_url());
             user.setAccount(String.valueOf(githubUser.getId()));
+            user.setBio(githubUser.getBio());
             user.setToken(UUID.randomUUID().toString());
             user.setCreate_time(System.currentTimeMillis());
             user.setLogin_time(System.currentTimeMillis());
             user.setLogin_times(1);
             InetAddress addr = InetAddress.getLocalHost();
             user.setLogin_ip(addr.getHostAddress());
+            user.setIsVip(0);
             //加入或更新数据库
             userService.insertUser(user);
             //登录之后把token加入cookie 并设置过期时间
@@ -91,9 +93,9 @@ public class AuthorizeController {
      * 用户退出登陆
      * 清除用户的本地cookie，及服务器端的session和redis中临时保存的用户数据
      */
-//    @GetMapping("/logout")
-//    public String logout(HttpServletRequest request, HttpServletResponse response){
-//        userService.logout(request, response);
-//        return "redirect:/";
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        userService.logout(request, response);
+        return "redirect:/";}
 }
 

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--引入BootStrap和Css-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <!--图标库-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!--顶部导航-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- 首页大按钮 -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">咸鱼翻身</span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:8080">咸鱼翻身</a>
+        </div>
+
+        <!-- 导航栏-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--商品搜索栏-->
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="搜索商品">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <!--登录显示-->
+            <ul class="nav navbar-nav navbar-right" th:if="${session.user!=null}">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">卖家中心<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">免费开店</a></li>
+                        <li><a href="#">卖家订单中心</a></li>
+                    </ul>
+                </li>
+
+                <li><img class="media-object img-rounded"
+                         style="max-height: 3.7em; max-width: 3.7em;"
+                         th:src="${session.user.getAvatar_img()}">
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">消息中心</a></li>
+                        <li><a href="member.html">账号管理</a></li>
+                        <li><a href="#">订单中心</a></li>
+                        <li><a href="logout">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--未登录显示-->
+            <ul class="nav navbar-nav navbar-right" th:if="${session.user==null}">
+                <li><a href="#" type="button" data-toggle="modal" data-target="#myModal">登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--登录模态框-->
+<div class="modal container" id="myModal">
+    <div class="card-wrap" style="margin-top: 300px;">
+        <!--欢迎登陆页面-->
+        <div class="card border-0 shadow card--welcome is-show" id="welcome"
+             style=" background-color: white;height: 180px;width:280px;border-radius:10px;">
+            <div class="card-body">
+                <h2 class="card-title">欢迎光临</h2>
+                <p>欢迎进入登录页面</p>
+                <div class="mBtn-wrap"><a class="mBtn mBtn-lg mBtn-register js-mBtn" data-target="register">注册</a><a
+                        class="mBtn mBtn-lg mBtn-login js-mBtn" data-target="login">登录</a></div>
+            </div>
+        </div>
+        <!--注册-->
+        <div class="card border-0 shadow card--register" id="register"
+             style="background-color: white;border-radius:10px;width:400px;">
+            <div class="card-body">
+                <h2 class="card-title">会员注册</h2>
+                <p>使用您的电子邮箱进行注册</p>
+                <form>
+                    <div class="form-group">
+                        <input class="mForm-control" type="text" placeholder="名称" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input class="mForm-control" type="email" placeholder="邮箱" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input class="mForm-control" type="password" placeholder="密码" required="required">
+                    </div>
+                    <button class="mBtn mBtn-lg">注册</button>
+                </form>
+            </div>
+            <button class="mBtn mBtn-back js-mBtn" data-target="welcome"><i class="fa fa-arrow-left"></i></button>
+        </div>
+        <!--登录-->
+        <div class="card border-0 shadow card--login" id="login"
+             style="background-color: white;border-radius:10px;width:400px;">
+            <div class="card-body">
+                <h2 class="card-title">欢迎登录！</h2>
+                <p>第三方登录</p>
+                <p class="badge-wrap">
+                    <!--Github授权登录-->
+                    <a class="badge"
+                       onclick="location='https://github.com/login/oauth/authorize?client_id=Iv1.b66da60546dd747a&redirect_uri=http://localhost:8080/callback&scope=user&state=1'"><i
+                            class="fa fa-github"></i></a>
+                    <a class="badge"><i class="fa fa-qq"></i></a>
+                    <a class="badge"><i class="fa fa-wechat"></i></a>
+                </p>
+                <p>或用邮箱登录</p>
+                <form>
+                    <div class="form-group">
+                        <input class="mForm-control" type="email" placeholder="邮箱" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input class="mForm-control" type="password" placeholder="密码" required="required">
+                    </div>
+                    <p><a href="#">忘记密码?</a></p>
+                    <button class="mBtn mBtn-lg">登录</button>
+                </form>
+            </div>
+            <button class="mBtn mBtn-back js-mBtn" data-target="welcome"><i class="fa fa-arrow-left"></i></button>
+        </div>
+    </div>
+</div>
+
+<!--引入JS文件-->
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="js/index.js" type="application/javascript"></script>
+</body>
+</html>

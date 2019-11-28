@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface UserMapper {
-    @Insert("insert into user(id,name,account,password,token,avatar_img,create_time,login_time,login_times,login_ip,tel) values(#{id},#{name},#{account},#{password},#{token},#{avatar_img},#{create_time},#{login_time},#{login_times},#{login_ip},#{tel})")
+    @Insert("insert into user(id,name,account,password,token,avatar_img,create_time,login_time,login_times,login_ip,tel,bio,isVip) values(#{id},#{name},#{account},#{password},#{token},#{avatar_img},#{create_time},#{login_time},#{login_times},#{login_ip},#{tel}),#{bio},#{isVip}")
     void insertUser(User uesr);
 
     @Select("select * from user where account=#{account}")
     User findByAccount(String account);
 
-    @Update("update user set name=#{name},password=#{password},token=#{token},avatar_img=#{avatar_img},login_time=#{login_time},login_times=login_times+1,login_ip=#{login_ip}")
+    @Update("update user set name=#{name},password=#{password},token=#{token},avatar_img=#{avatar_img},login_time=#{login_time},login_times=login_times+1,login_ip=#{login_ip},bio=#{bio}")
     void updateUser(User user);
 
     @Select("select * from user where token=#{token}")
