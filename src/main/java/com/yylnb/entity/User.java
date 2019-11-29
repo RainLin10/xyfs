@@ -16,12 +16,16 @@ public class User {
     private String name;
     //账户
     private String account;
-    //签名
-    private String bio;
-    //密码
-    private  String password;
     //电话号码
     private Integer tel;
+    //邮箱
+    private  String mail;
+    //密码
+    private  String password;
+    //性别
+    private Integer sex;
+    //签名
+    private String bio;
     //token
     private String token;
     //头像

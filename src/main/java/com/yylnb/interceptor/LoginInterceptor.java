@@ -24,21 +24,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("进入拦截器");
         //找cookies
         Cookie[] cookies = request.getCookies();
-        System.out.println("所有的"+cookies);
         //循环cookies
         for (Cookie cookie : cookies) {
             //找到为token的cookie
             if ("token".equals(cookie.getName())) {
-                System.out.println("找到的"+cookie);
                 //保存找到的token
                 String token = cookie.getValue();
-                System.out.println("token"+token);
                 //用token去数据库找 然后把user注入到session
                 User user = userMapper.findByToken(token);
-                System.out.println(user);
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
                 }

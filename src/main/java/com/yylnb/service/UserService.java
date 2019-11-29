@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface UserService {
     User findByAccount(String account);
-    void insertUser(User user);
-    void updateUser(User user);
-
+    void authorizeLogin(User user);
+    void UpdateUserInfo(User user);
     void logout(HttpServletRequest request, HttpServletResponse response);
+
 }

@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insertUser(User user) {
+    public void authorizeLogin(User user) {
         //用账户在数据库寻找用户
         User findUser = userMapper.findByAccount(user.getAccount());
         //如果可以用ID找到该用户 代表已经注册了 找不到就注册
@@ -35,32 +35,32 @@ public class UserServiceImpl implements UserService {
             userMapper.insertUser(user);
             System.out.println("用户加入数据库");
         } else {
-            userMapper.updateUser(user);
+            userMapper.updateUser_login(user);
             System.out.println("用户已更新");
         }
     }
 
     @Override
-    public void updateUser(User user) {
-        userMapper.updateUser(user);
-        System.out.println("用户已更新");
+    public void UpdateUserInfo(User user) {
+        userMapper.updateUserInfo(user);
     }
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) {
+        //删除session
         request.getSession().invalidate();
         System.out.println("用户注销");
+        //删除cookie
         Cookie[] cookies = request.getCookies();
-        if(cookies != null || cookies.length != 0){
+        if (cookies != null || cookies.length != 0) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")){
+                if (cookie.getName().equals("token")) {
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
                 }
             }
         }
     }
-
 
 
 }

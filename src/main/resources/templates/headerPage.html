@@ -47,9 +47,11 @@
                     </ul>
                 </li>
 
-                <li><img class="media-object img-rounded"
-                         style="max-height: 3.7em; max-width: 3.7em;"
-                         th:src="${session.user.getAvatar_img()}">
+                <li>
+                    <a href="member.html" style="padding: 0;">
+                        <img class="media-object img-rounded" style="max-height: 3.7em; max-width: 3.7em;"
+                             th:src="${session.user.getAvatar_img()}">
+                    </a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -134,5 +136,5 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="css/index.css">
-<script src="js/index.js" type="application/javascript"></script>
+<link rel="stylesheet" href="css/headerPage.css">
+<script src="js/headerPage.js" type="application/javascript"></script>

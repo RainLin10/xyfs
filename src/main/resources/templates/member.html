@@ -13,7 +13,7 @@
 </head>
 <body>
 <!--顶部导航-->
-<div class="headerPage"></div>
+<span class="headerPage"></span>
 <!--内容-->
 <div class="container-fluid"
      style="background-color: #e3e8e8;border-radius:10px;box-shadow:0px 0px 16px 5px #ccc;width: 80%;height: 600px;margin-top: 50px;">
@@ -36,7 +36,7 @@
                 <form class="form-horizontal">
                     <!--昵称-->
                     <div class="form-group" style="margin-top: 10px;">
-                        <label for="name" class="col-sm-2 control-label">昵称</label>
+                        <label class="col-sm-2 control-label">昵称</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="name" th:value="${session.user.getName()}">
                         </div>
@@ -45,31 +45,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">账户名</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static" th:text="${session.user.getAccount()}"></p>
+                            <p class="form-control-static" id="account" th:text="${session.user.getAccount()}"></p>
                         </div>
                     </div>
 
-                    <!--电话-->
-                    <div class="form-group">
-                        <label for="tel" class="col-sm-2 control-label">电话</label>
-                        <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="tel" th:value="${session.user.getTel()}">
-                        </div>
-                    </div>
-                    <!--邮箱-->
-                    <div class="form-group">
-                        <label for="tel" class="col-sm-2 control-label">邮箱</label>
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <input type="email" class="form-control" id="email">
-                                <span class="input-group-addon"> <a href="#" class="btn-block"
-                                                                    style="text-decoration:none">验证</a> </span>
-                            </div>
-                        </div>
-                    </div>
                     <!--签名-->
                     <div class="form-group">
-                        <label for="bio" class="col-sm-2 control-label">我的签名</label>
+                        <label class="col-sm-2 control-label">我的签名</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="3" id="bio"
                                       th:text="${session.user.getBio()}"></textarea>
@@ -79,33 +61,53 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">性别</label>
                         <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>男</option>
-                                <option>女</option>
+                            <select class="form-control" id="sex">
+                                <option th:selected="${session.user.getSex()==0}" value="0">男</option>
+                                <option th:selected="${session.user.getSex()==1}" value="1">女</option>
                             </select>
                         </div>
                     </div>
-                    <!--出生日期-->
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">出生日期</label>
-                        <div class="col-sm-10">
-
+                        <div class="col-md-10">
+                            <span class="alert alert-danger" role="alert" th:if="${error!=null}"
+                                  th:value="${error}"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-success" style="width: 100%;" id="updateUserInfo">提交</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>绑定的邮箱：<span
+                                    th:text="${session.user.getMail()!=null?session.user.getMail():'未绑定'}"></span></label>
+                            <button class="btn btn-primary" style="width: 100%;">更改邮箱</button>
+                        </div>
+                        <div class="col-md-6">
+                            <label>绑定的手机号:<span
+                                    th:text="${session.user.getTel()!=null?session.user.getTel():'未绑定'}"></span></label>
+                            <button class="btn btn-primary" style="width: 100%;">更改手机号</button>
                         </div>
                     </div>
 
 
-                    <!---->
-                    <!--密码-->
                     <div class="form-group">
-                        <label for="password" class="col-sm-2 control-label">密码</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="password">
+                        <div class="col-md-6">
+                            <label>更改密码</label>
+                            <button class="btn btn-primary" style="width: 100%;">更改密码</button>
+                        </div>
+                        <div class="col-md-6">
+                            <label>待定</label>
+                            <button class="btn btn-primary" style="width: 100%;">待定</button>
                         </div>
                     </div>
+
                 </form>
+
             </div>
 
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <!--空白待定-->
+            </div>
         </div>
     </div>
 </div>
@@ -119,7 +121,38 @@
     $(function () {
         $(".headerPage").load("headerPage.html");
     });
+</script>
+<!--利用ajax发送请求更新个人信息-->
+<script>
+    <!--绑定updateUserInfo按钮提交name,bio,account,sex-->
+    $("#updateUserInfo").on("click", function () {
+        var name = $("#name").val();
+        var bio = $("#bio").val()
+        var account = $("#account").text()
+        var sex = $("#sex").val()
 
+        if (name == null || name === '' || name.length > 10) {
+            alert('昵称格式错误 ');
+        } else if (bio == null || bio === '' || bio.length > 20) {
+            alert('签名格式错误 ');
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "updateUserInfo",
+                dataType: "JSON",
+                async: false,
+                data: {
+                    name: name,
+                    bio: bio,
+                    account: account,
+                    sex: sex
+                }
+            });
+            alert('更改成功 ');
+        }
+
+
+    });
 </script>
 </body>
 </html>

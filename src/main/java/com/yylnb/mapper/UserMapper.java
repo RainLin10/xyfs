@@ -11,14 +11,18 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface UserMapper {
-    @Insert("insert into user(id,name,account,password,token,avatar_img,create_time,login_time,login_times,login_ip,tel,bio,isVip) values(#{id},#{name},#{account},#{password},#{token},#{avatar_img},#{create_time},#{login_time},#{login_times},#{login_ip},#{tel}),#{bio},#{isVip}")
-    void insertUser(User uesr);
+    @Insert("insert into user(name,account,password,token,avatar_img,create_time,login_time,login_times,login_ip,tel,bio,isVip) values(#{name},#{account},#{password},#{token},#{avatar_img},#{create_time},#{login_time},#{login_times},#{login_ip},#{tel}),#{bio},#{isVip}")
+    void insertUser(User user);
 
     @Select("select * from user where account=#{account}")
     User findByAccount(String account);
 
-    @Update("update user set name=#{name},password=#{password},token=#{token},avatar_img=#{avatar_img},login_time=#{login_time},login_times=login_times+1,login_ip=#{login_ip},bio=#{bio}")
-    void updateUser(User user);
+    //根据id更新token、登录时间、登录次数、登录ip
+    @Update("update user set token=#{token},login_time=#{login_time},login_times=login_times+1,login_ip=#{login_ip} where account=#{account}")
+    void updateUser_login(User user);
+    //在个人信息页面发起请求更改个人信息
+    @Update("update user set name=#{name},bio=#{bio},sex=#{sex} where account=#{account}")
+    void updateUserInfo(User user);
 
     @Select("select * from user where token=#{token}")
     User findByToken(@Param("token") String token);

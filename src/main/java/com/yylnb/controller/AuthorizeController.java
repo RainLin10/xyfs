@@ -61,7 +61,7 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.githubUser(githubProvider.getAccessToken(accessToken));
 
 
-        if (githubUser != null) {
+        if (githubUser != null&&githubUser.getId()!=null) {
             //登录成功
             //拿到用户信息后封装自己的用户表用户
             User user = new User();
@@ -69,6 +69,7 @@ public class AuthorizeController {
             user.setAvatar_img(githubUser.getAvatar_url());
             user.setAccount(String.valueOf(githubUser.getId()));
             user.setBio(githubUser.getBio());
+
             user.setToken(UUID.randomUUID().toString());
             user.setCreate_time(System.currentTimeMillis());
             user.setLogin_time(System.currentTimeMillis());
@@ -76,16 +77,14 @@ public class AuthorizeController {
             InetAddress addr = InetAddress.getLocalHost();
             user.setLogin_ip(addr.getHostAddress());
             user.setIsVip(0);
-            //加入或更新数据库
-            userService.insertUser(user);
+            //加入或更新数据库 数据库无该账号，将上面的信息全部加入到数据库 有该账号就把除了授权的信息，其他的全部更新
+            userService.authorizeLogin(user);
             //登录之后把token加入cookie 并设置过期时间
             Cookie cookie = new Cookie("token",  user.getToken());
-            cookie.setMaxAge(60);
+            cookie.setMaxAge(60*60*24*7);
             response.addCookie(cookie);
             return "redirect:/";
         } else {
-            //登录失败
-//            log.error("callback get github user error,{}",githubUser);
             return "redirect:/";
         }
     }
