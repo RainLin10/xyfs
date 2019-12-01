@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     //排除不需要拦截的路径
     String excludePathPatterns[] = {
-             "/webjars/**"
+            "/admin","/admin.html"
     };
 
     //加载拦截器
@@ -38,13 +38,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns(excludePathPatterns);
     }
 
+
+
+
+
     //定义入口
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
-        registry.addViewController("/member.html").setViewName("member");
-        registry.addViewController("/headerPage.html").setViewName("headerPage");
-        registry.addViewController("/footerPage.html").setViewName("footerPage");
+        registry.addViewController("/publicPage.html").setViewName("publicPage");
+        registry.addViewController("/admin.html").setViewName("admin");
     }
 }

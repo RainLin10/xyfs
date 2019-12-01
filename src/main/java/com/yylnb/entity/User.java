@@ -17,7 +17,7 @@ public class User {
     //账户
     private String account;
     //电话号码
-    private Integer tel;
+    private Long tel;
     //邮箱
     private  String mail;
     //密码
@@ -40,5 +40,7 @@ public class User {
     private Integer login_times;
     //是否会员
     private  Integer isVip;
+    //是否卖家
+    private  Integer isSeller;
 
 }

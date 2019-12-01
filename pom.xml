@@ -41,8 +41,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.48</version>
+            <version>8.0.18</version>
         </dependency>
+
         <!-- myBaits -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

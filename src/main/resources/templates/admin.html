@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>咸鱼翻身-管理员</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="container-fluid"
+     style="border-radius:10px;box-shadow:0px 0px 16px 5px #ccc;width: 80%;margin-top: 50px;">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>昵称</th>
+            <th>账户</th>
+            <th>电话</th>
+            <th>邮箱</th>
+            <th>性别</th>
+            <th>注册时间</th>
+            <th>登录时间</th>
+            <th>登录IP</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.account}"></td>
+            <td th:text="${user.tel==null?'未绑定':user.tel}"></td>
+            <td th:text="${user.mail==null?'未绑定':user.mail}"></td>
+            <td th:text="${user.sex==0?'女':'男'}"></td>
+            <td th:text="${#dates.format(user.create_time, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#dates.format(user.login_time, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${user.login_ip}"></td>
+            <td style="padding:0">
+                <button class="btn btn-sm btn-primary">修改</button>
+                <button class="btn btn-sm btn-danger">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

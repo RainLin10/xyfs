@@ -1,0 +1,48 @@
+CREATE TABLE `user` (
+`id`  int(5) NOT NULL AUTO_INCREMENT ,
+`name`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`account`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`tel`  bigint(11) NULL DEFAULT NULL ,
+`mail`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`password`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`sex`  int(1) NULL DEFAULT NULL ,
+`bio`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`token`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`avatar_img`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`create_time`  bigint(13) NULL DEFAULT NULL ,
+`login_time`  bigint(13) NULL DEFAULT NULL ,
+`login_times`  int(5) NULL DEFAULT NULL ,
+`login_ip`  varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`isVip`  int(1) NULL DEFAULT NULL ,
+`isSeller`  int(1) NULL DEFAULT NULL ,
+PRIMARY KEY (`id`, `account`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=4
+ROW_FORMAT=COMPACT
+;
+
+
+
+
+
+
+CREATE TABLE `NewTable` (
+`id`  int(10) NOT NULL AUTO_INCREMENT ,
+`userId`  int(5) NOT NULL ,
+`shop`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`title`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`describe`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`price`  float(8,2) NULL DEFAULT NULL ,
+`img`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`volume`  int(7) NULL DEFAULT NULL ,
+`inventory`  int(7) NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+ROW_FORMAT=DYNAMIC
+;
+
+

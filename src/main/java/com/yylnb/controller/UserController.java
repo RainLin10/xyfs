@@ -5,6 +5,7 @@ import com.yylnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,15 +14,18 @@ import java.util.Objects;
 
 /**
  * @author RainLin
- * @date 2019/11/29 - 14:44
+ * @date 2019/11/30 - 16:24
  */
-
 @Controller
-public class UpdateUserInfo {
+public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @GetMapping("/member")
+    public String member() {
+        return "member";
+    }
 
     @PostMapping("/updateUserInfo")
     public String updateUserInfo(

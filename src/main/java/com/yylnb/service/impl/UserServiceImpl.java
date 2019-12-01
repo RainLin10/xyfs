@@ -20,18 +20,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
-    @Override
-    public User findByAccount(String account) {
-        System.out.println("用户加入数据库");
-        return userMapper.findByAccount(account);
-    }
 
+
+    //授权登录，首先用账户在数据库找是否存在，无就加入，有就除去授权的信息将其他的信息更新,除去授权信息是为了保证本站信息优先性
     @Override
     public void authorizeLogin(User user) {
         //用账户在数据库寻找用户
         User findUser = userMapper.findByAccount(user.getAccount());
         //如果可以用ID找到该用户 代表已经注册了 找不到就注册
         if (findUser == null) {
+
             userMapper.insertUser(user);
             System.out.println("用户加入数据库");
         } else {
@@ -40,11 +38,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    //在个人信息页面更新个人信息
     @Override
     public void UpdateUserInfo(User user) {
         userMapper.updateUserInfo(user);
     }
 
+    //注销
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         //删除session

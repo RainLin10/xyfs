@@ -10,7 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<!--顶部导航-->
+<span th:include="publicPage :: headerPage"></span>
 
 <div class="container-fluid"
      style="background-color: #e3e8e8;border-radius:10px;box-shadow:0px 0px 16px 5px #ccc;width: 80%;margin-top: 50px;">
@@ -37,13 +38,13 @@
     </ul>
     <!--商品-->
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" th:each="commoditie:${commodities}">
             <div class="thumbnail">
-                <img src="..." alt="商品" style="width: 100%;height: 200px;">
+                <img th:src="${commoditie.img}" alt="商品" style="width: 100%;height: 200px;">
                 <div class="caption">
-                    <h3>¥1260.00</h3>
-                    <p>HXM红魔电鼓XD450/HD008L/006LX电子鼓电子架子鼓初学爵士鼓</p>
-                    <p>佳筠乐器专营店</p>
+                    <h4 th:text="'￥'+${commoditie.price}"style="color: #ff6464"></h4>
+                    <p th:text="${commoditie.title}"></p>
+                    <a th:text="${commoditie.shop}">佳筠乐器专营店</a>
                 </div>
             </div>
         </div>
