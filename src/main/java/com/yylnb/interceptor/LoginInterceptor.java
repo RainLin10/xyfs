@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("进入拦截");
-        //找cookies
+        //找所有cookies
         Cookie[] cookies = request.getCookies();
         //循环cookies
         for (Cookie cookie : cookies) {
@@ -36,6 +36,8 @@ public class LoginInterceptor implements HandlerInterceptor {
                 //用token去数据库找 然后把user注入到session
                 User user = userMapper.findByToken(token);
                 if (user != null) {
+                    user.setLogin_time(System.currentTimeMillis());
+                    userMapper.updateLoginTime(user);
                     request.getSession().setAttribute("user", user);
                 }
                 break;

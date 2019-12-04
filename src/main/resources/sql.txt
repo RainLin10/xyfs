@@ -1,27 +1,31 @@
-CREATE TABLE `user` (
+CREATE TABLE `NewTable` (
 `id`  int(5) NOT NULL AUTO_INCREMENT ,
 `name`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `account`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 `tel`  bigint(11) NULL DEFAULT NULL ,
 `mail`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `password`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`sex`  int(1) NULL DEFAULT NULL ,
-`bio`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`sex`  int(1) NULL DEFAULT 0 ,
+`bio`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `token`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `avatar_img`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `create_time`  bigint(13) NULL DEFAULT NULL ,
 `login_time`  bigint(13) NULL DEFAULT NULL ,
 `login_times`  int(5) NULL DEFAULT NULL ,
 `login_ip`  varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`isVip`  int(1) NULL DEFAULT NULL ,
-`isSeller`  int(1) NULL DEFAULT NULL ,
+`isVip`  int(1) NULL DEFAULT 0 ,
+`isSeller`  int(1) NULL DEFAULT 0 ,
+`isApply`  int(1) NULL DEFAULT 0 ,
 PRIMARY KEY (`id`, `account`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=4
+AUTO_INCREMENT=5
 ROW_FORMAT=COMPACT
 ;
+
+
+
 
 
 

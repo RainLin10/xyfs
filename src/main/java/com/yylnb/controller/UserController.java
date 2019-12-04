@@ -24,11 +24,11 @@ public class UserController {
 
     @GetMapping("/member")
     public String member() {
-        return "member";
+        return "user/member";
     }
 
-    @PostMapping("/updateUserInfo")
-    public String updateUserInfo(
+    @PostMapping("/member/modify")
+    public String modify(
             @RequestParam("name") String name,
             @RequestParam("bio") String bio,
             @RequestParam("account") String account,
@@ -38,15 +38,15 @@ public class UserController {
         //后端数据格式检查 不合格返回错误信息
         if (name == null || Objects.equals(name, "") || name.length() > 10) {
             model.addAttribute("error", "昵称不能为空");
-            return "member";
+            return "user/member";
         }
-        if (bio == null || Objects.equals(bio, "") || bio.length() > 20) {
+        if (bio == null || Objects.equals(bio, "") || bio.length() > 50) {
             model.addAttribute("error", "签名不能为空");
-            return "member";
+            return "user/member";
         }
         if (sex == null) {
             model.addAttribute("error", "性别不能为空");
-            return "member";
+            return "user/member";
         }
 
         User user = new User();
@@ -57,7 +57,7 @@ public class UserController {
         user.setSex(sex);
 
         //更新
-        userService.UpdateUserInfo(user);
+        userService.updateUserInfo_member(user);
         return "redirect:member";
     }
 }

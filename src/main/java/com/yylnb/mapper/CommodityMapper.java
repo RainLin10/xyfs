@@ -17,9 +17,6 @@ public interface CommodityMapper {
     @Select("select * from commodity")
     Commodity[] allCommodities();
 
-//    @Insert("insert into commodity(userId,shop,title,info,price,img,volume,inventory)
-//    values(#{userId},#{shop},#{title},#{info},#{price},#{img},#{volume},#{inventory})")
-
     @Insert("insert into commodity(userId,shop,title,info,price,img,volume,inventory) " +
             "values(#{userId},#{shop},#{title},#{info},#{price},#{img},#{volume},#{inventory})")
     void addCommodity(Commodity commodity);

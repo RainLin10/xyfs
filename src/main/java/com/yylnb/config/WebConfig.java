@@ -4,6 +4,7 @@ import com.yylnb.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,7 +28,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     //排除不需要拦截的路径
     String excludePathPatterns[] = {
-            "/admin","/admin.html"
     };
 
     //加载拦截器
@@ -39,7 +39,13 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
-
+    /**
+     * 资源映射路径
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/temp-rainy/**").addResourceLocations("file:D:/temp-rainy/");
+    }
 
 
     //定义入口

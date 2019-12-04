@@ -76,8 +76,6 @@ public class AuthorizeController {
             user.setLogin_times(1);
             InetAddress addr = InetAddress.getLocalHost();
             user.setLogin_ip(addr.getHostAddress());
-            user.setIsVip(0);
-            user.setSex(1);
             //加入或更新数据库 数据库无该账号，将上面的信息全部加入到数据库 有该账号就把除了授权的信息，其他的全部更新
             userService.authorizeLogin(user);
             //登录之后把token加入cookie 并设置过期时间

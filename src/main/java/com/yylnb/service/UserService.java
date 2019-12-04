@@ -12,7 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface UserService {
     void authorizeLogin(User user);
-    void UpdateUserInfo(User user);
+
+    void updateUserInfo_member(User user);
+
+    void updateUserInfo_admin(User user);
+
+    User[] allUsers(String flag);
+
     void logout(HttpServletRequest request, HttpServletResponse response);
+
+    void isSeller(User user);
 
 }

@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+
         <!-- Get/Set自动生产方法Lombok 插件依赖 -->
         <dependency>
             <groupId>org.projectlombok</groupId>

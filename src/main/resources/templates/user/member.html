@@ -125,7 +125,6 @@
         var bio = $("#bio").val()
         var account = $("#account").text()
         var sex = $("#sex").val()
-
         if (name == null || name === '' || name.length > 10) {
             alert('昵称格式错误 ');
         } else if (bio == null || bio === '' || bio.length > 20) {
@@ -133,7 +132,7 @@
         } else {
             $.ajax({
                 type: 'POST',
-                url: "updateUserInfo",
+                url: "/member/modify",
                 dataType: "JSON",
                 async: false,
                 data: {
@@ -145,8 +144,6 @@
             });
             alert('更改成功 ');
         }
-
-
     });
 </script>
 </body>

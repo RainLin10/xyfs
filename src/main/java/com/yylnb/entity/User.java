@@ -19,9 +19,9 @@ public class User {
     //电话号码
     private Long tel;
     //邮箱
-    private  String mail;
+    private String mail;
     //密码
-    private  String password;
+    private String password;
     //性别
     private Integer sex;
     //签名
@@ -39,8 +39,9 @@ public class User {
     //登录次数
     private Integer login_times;
     //是否会员
-    private  Integer isVip;
+    private Integer isVip;
     //是否卖家
-    private  Integer isSeller;
-
+    private Integer isSeller;
+    //是否申请卖家
+    private Integer isApply;
 }
