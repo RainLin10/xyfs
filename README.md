@@ -41,7 +41,7 @@
 ## 页头与页脚的分离
    - 分离出去的header.html 不需要写<html>和<head>等标签，只需写需要用的组件就行
    - 在header.html引用的css和js只对自己生效，但是被引用之后，引用他的html里的css和js会对header.html生效
-   - 目前是用<span>标签配合js去引用
+   - 目前是用thymeleaf模板去分离
 ## 待解决的问题
    1. 登录之后，依然可以访问login.html(改为了模态框登录)
    2. 页头和页脚分离成单独的html，减少代码重复性(已解决)
