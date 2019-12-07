@@ -24,3 +24,6 @@ public interface UserService {
     void isSeller(User user);
 
 }
+
+
+
